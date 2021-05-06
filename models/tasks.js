@@ -1,11 +1,8 @@
-const { Sequelize, Model, DataTypes } = require("sequelize");
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
-module.exports = (Sequelize, DataTypes) => {
-  const Tasks = Sequelize.define("Tasks", {
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
-    },
-  });
-};
+const TaskSchema = new Schema({
+  title: String,
+});
+
+mongoose.model("Task", TaskSchema);

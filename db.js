@@ -1,15 +1,21 @@
-const Sequelize = require("sequelize");
-const config = require("./libs/config");
-let sequelize = null;
+const mongoose = require("mongoose");
 
-module.exports = () => {
-  if (!sequelize) {
-    sequelize = new Sequelize(
-      config.database,
-      config.username,
-      config.password,
-      config.params
+const connectDB = async () => {
+  try {
+    const db = await mongoose.connect(
+      "MONGOURI=mongodb://localhost:27017/ntask",
+      {
+        useUnifiedTopology: true,
+        useNewUrlParser: true,
+        useCreateIndex: true,
+      }
     );
+
+    console.log(`MongoDB Connected: ${db.connection.host}`);
+  } catch (error) {
+    console.log(`Error: ${error.message}`);
+    process.exit(1);
   }
-  return sequelize;
 };
+
+module.exports = connectDB;
